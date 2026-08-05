@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FileTidy Agent 本地文件分类与整理工具">
+    <title>FileTidy Agent</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">FT</div>
+          <div><strong>FileTidy</strong><span>本地文件管家</span></div>
+        </div>
+        <nav aria-label="主要导航">
+          <button class="nav-item active" data-view="files">文件工作台</button>
+          <button class="nav-item" data-view="history">操作记录</button>
+        </nav>
+        <div class="privacy-note">
+          <strong>本地优先</strong>
+          <p>扫描、标签和移动均在本机完成，服务仅监听 127.0.0.1。</p>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">FILE WORKSPACE</p>
+            <h1>把杂乱文件变成可控清单</h1>
+            <p>先看建议，再确认整理；每次移动都可以撤销。</p>
+          </div>
+          <div class="top-actions">
+            <button id="resetDemoButton" class="button secondary">重置演示数据</button>
+            <button id="scanButton" class="button primary">重新扫描</button>
+          </div>
+        </header>
+
+        <section class="path-panel card">
+          <div class="path-heading">
+            <div><span class="step">01</span><strong>选择整理目录</strong></div>
+            <span id="lastScan" class="muted">尚未扫描</span>
+          </div>
+          <form id="pathForm" class="path-form">
+            <label class="sr-only" for="rootPath">整理目录路径</label>
+            <input id="rootPath" name="rootPath" autocomplete="off" placeholder="例如：/Users/you/Desktop">
+            <button class="button secondary" type="submit">保存目录</button>
+          </form>
+          <p class="hint">MVP 只访问你明确输入的目录；建议先使用内置演示目录。</p>
+        </section>
+
+        <section id="summaryCards" class="summary-grid" aria-label="扫描摘要"></section>
+
+        <section id="filesView" class="workspace card">
+          <div class="section-heading">
+            <div>
+              <span class="step">02</span>
+              <div><h2>确认分类建议</h2><p>规则根据扩展名、文件名、目录和修改时间生成，原因可追溯。</p></div>
+            </div>
+            <div class="section-actions">
+              <button id="confirmButton" class="button secondary" disabled>确认建议标签</button>
+              <button id="organizeButton" class="button accent" disabled>预览并整理</button>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input id="searchInput" type="search" placeholder="搜索文件名或路径">
+            <select id="tagFilter" aria-label="按标签筛选"><option value="">全部标签</option></select>
+            <select id="statusFilter" aria-label="按状态筛选">
+              <option value="">全部状态</option>
+              <option value="pending">待确认</option>
+              <option value="confirmed">已确认</option>
+              <option value="organized">已整理</option>
+            </select>
+            <span id="selectionLabel" class="selection-label">未选择文件</span>
+          </div>
+
+          <div id="loadingState" class="state-block hidden"><span class="spinner"></span><p>正在读取本地文件…</p></div>
+          <div id="emptyState" class="state-block hidden"><div class="empty-icon">✓</div><h3>当前没有匹配的文件</h3><p>可以调整筛选条件，或重新扫描目录。</p></div>
+          <div id="fileTableWrap" class="table-wrap">
+            <table>
+              <thead><tr><th><input id="selectAll" type="checkbox" aria-label="选择全部"></th><th>文件</th><th>建议与依据</th><th>已确认标签</th><th>建议去向</th></tr></thead>
+              <tbody id="fileRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="historyView" class="workspace card hidden">
+          <div class="section-heading">
+            <div><span class="step">03</span><div><h2>操作记录</h2><p>整理动作真实落盘，遇到问题可以恢复原位置。</p></div></div>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="previewDialog">
+      <div class="dialog-head"><div><p class="eyebrow">MOVE PREVIEW</p><h2>确认文件移动</h2></div><button id="closeDialog" class="icon-button" aria-label="关闭">×</button></div>
+      <p id="previewSummary" class="dialog-copy"></p>
+      <div id="previewList" class="preview-list"></div>
+      <div class="dialog-actions"><button id="cancelOrganize" class="button secondary">返回检查</button><button id="executeOrganize" class="button accent">确认整理</button></div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

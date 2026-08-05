@@ -1,0 +1,20 @@
+{
+  "name": "filetidy-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first MVP for scanning, tagging, organizing, and undoing file operations.",
+  "engines": {
+    "node": ">=18.16"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "seed": "node scripts/seed-demo.mjs",
+    "lint": "node scripts/lint.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "verify": "npm run lint && npm run check && npm test && npm run build"
+  }
+}

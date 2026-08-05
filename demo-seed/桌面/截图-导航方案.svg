@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#f3f6f1"/>
+  <rect x="28" y="28" width="584" height="54" rx="12" fill="#245c45"/>
+  <rect x="42" y="104" width="178" height="228" rx="12" fill="#dce9df"/>
+  <rect x="242" y="104" width="370" height="106" rx="12" fill="#ffffff" stroke="#c8d2ca"/>
+  <rect x="242" y="226" width="176" height="106" rx="12" fill="#c9ef72"/>
+  <rect x="436" y="226" width="176" height="106" rx="12" fill="#ffffff" stroke="#c8d2ca"/>
+  <text x="48" y="63" fill="white" font-size="18" font-family="sans-serif">导航方案截图</text>
+</svg>
